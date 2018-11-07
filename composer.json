@@ -1,0 +1,30 @@
+{
+    "name": "kgregorywd/mail-management",
+    "description": "Mail management",
+    "type": "library",
+    "license": "MIT",
+    "version": "1.0.0",
+    "authors": [
+        {
+            "name": "Gregory Kovalev",
+            "email": "kgregorywd@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Kgregorywd\\MailManagement\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Kgregorywd\\MailManagement\\MailManagementServiceProvider"
+            ],
+            "aliases": {
+                "MailManagement": "Kgregorywd\\MailManagement\\Facade"
+            }
+        }
+    }
+}
