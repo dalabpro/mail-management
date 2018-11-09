@@ -27,7 +27,6 @@ class CreateMailboxesTable extends Migration
             $table->string('imap_password')->nullable();
             $table->string('imap_encryption')->nullable();
             $table->unsignedInteger('imap_validate_cert')->default(0);
-            $table->unsignedInteger('last_message_uid')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });
