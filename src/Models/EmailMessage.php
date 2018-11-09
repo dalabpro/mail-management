@@ -32,6 +32,7 @@ class EmailMessage extends Model
         'header',
         'email_id',
         'client_id',
+        'folder',
         'is_ready',
         'received_at',
     ];

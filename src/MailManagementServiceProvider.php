@@ -3,6 +3,8 @@
 namespace Kgregorywd\MailManagement;
 
 use Kgregorywd\MailManagement\Drivers\MailManagement;
+use Kgregorywd\MailManagement\Extensions\MenuBuilder;
+use Kgregorywd\MailManagement\Models\MailBox;
 use Route;
 use Illuminate\Support\ServiceProvider;
 
@@ -39,7 +41,9 @@ class MailManagementServiceProvider extends ServiceProvider
 
         $this->registerMigrations();
 
-//        MenuBuilder::build();
+        MenuBuilder::build();
+
+        Route::model('mailbox', MailBox::class);
     }
 
     /**
@@ -91,7 +95,7 @@ class MailManagementServiceProvider extends ServiceProvider
      */
     public function registerViews()
     {
-        $viewPath = resource_path('views/vendor/currencies');
+        $viewPath = resource_path('views/vendor/mailManagement');
 
         $sourcePath = __DIR__.'/Resources/views';
 
@@ -100,8 +104,8 @@ class MailManagementServiceProvider extends ServiceProvider
         ], 'views');
 
         $this->loadViewsFrom(array_merge(array_map(function ($path) {
-            return $path . '/vendor/currencies';
-        }, \Config::get('view.paths')), [$sourcePath]), 'currency');
+            return $path . '/vendor/mailManagement';
+        }, \Config::get('view.paths')), [$sourcePath]), 'MailManagement');
     }
 
     /**
@@ -111,12 +115,12 @@ class MailManagementServiceProvider extends ServiceProvider
      */
     public function registerTranslations()
     {
-        $langPath = resource_path('lang/vendor/currencies');
+        $langPath = resource_path('lang/vendor/mailManagement');
 
         if (is_dir($langPath)) {
-            $this->loadTranslationsFrom($langPath, 'currency');
+            $this->loadTranslationsFrom($langPath, 'MailManagement');
         } else {
-            $this->loadTranslationsFrom(__DIR__ .'/Resources/lang', 'currency');
+            $this->loadTranslationsFrom(__DIR__ .'/Resources/lang', 'MailManagement');
         }
     }
 
