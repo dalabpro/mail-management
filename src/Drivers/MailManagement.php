@@ -45,9 +45,11 @@ class MailManagement
                 $mbox = imap_open($server, $login, $pass);
 
                 $foldersOld = [
-                    'INBOX',
-                    imap_utf8_to_mutf7('Отправленные'),
+                    imap_utf8_to_mutf7("Спам"),
+                    imap_utf8_to_mutf7("Черновики"),
+                    imap_utf8_to_mutf7("Корзина"),
                 ];
+
                 $foldersNew = [];
 
                 $mailboxes = imap_list($mbox, $server, '*');
@@ -55,7 +57,7 @@ class MailManagement
                     $foldersNew[] = str_replace($server, '', $item);
                 }
 
-                $folders = array_intersect($foldersOld, $foldersNew);
+                $folders = array_diff($foldersNew, $foldersOld);
 
                 foreach ($folders as $folder) {
                     $mbox = imap_open($server.$folder, $login, $pass);
@@ -64,24 +66,29 @@ class MailManagement
                         $criteria = "SINCE " . (new Carbon())->subDays(60)->format('d-M-Y');
                         $uids   = imap_search($mbox, $criteria, SE_UID);
 
-                        $fetchResults = imap_fetch_overview($mbox, implode(',', $uids), FT_UID);
+                        $sequence = $uids ? implode(',', $uids) : 'ALL';
+
+                        $fetchResults = imap_fetch_overview($mbox, $sequence, FT_UID);
 
                         foreach ($fetchResults as $fetchResult) {
                             /*Парсим EMail из заголовка*/
                             $pattern = "/[-a-z0-9!#$%&'*_`{|}~]+[-a-z0-9!#$%&'*_`{|}~\.=?]*@[a-zA-Z0-9_-]+[a-zA-Z0-9\._-]+/i";
-                            preg_match_all($pattern, $fetchResult->from, $resultsFromData);
-                            preg_match_all($pattern, $fetchResult->to, $resultsToData);
+                            preg_match_all($pattern, isset($fetchResult->from) ? $fetchResult->from : '', $resultsFromData);
+                            preg_match_all($pattern, isset($fetchResult->to) ? $fetchResult->to : '', $resultsToData);
 
-                            $emailFromFrom = array_unique(array_map(function ($i) {
-                                return $i[0];
+                            $emailFrom = array_unique(array_map(function ($i) {
+                                return isset($i[0]) ? $i[0] : [];
                             }, $resultsFromData));
 
-                            $emailToFrom = array_unique(array_map(function ($i) {
-                                return $i[0];
+                            $emailTo = array_unique(array_map(function ($i) {
+                                return isset($i[0]) ? $i[0] : [];
                             }, $resultsToData));
 
-                            $emailFromResult = array_search($emailFromFrom[0], $clientEmails);
-                            $emailToResult = array_search($emailToFrom[0], $clientEmails);
+                            $emailFrom = isset($emailFrom[0]) ? $emailFrom[0] : '';
+                            $emailTo = isset($emailTo[0]) ? $emailTo[0] : '';
+
+                            $emailFromResult = array_search($emailFrom, $clientEmails);
+                            $emailToResult = array_search($emailTo, $clientEmails);
 
                             if ($emailFromResult || $emailToResult) {
 
@@ -111,7 +118,7 @@ class MailManagement
                                     $mailBox->header = $this->getHeaderRaw($mbox, $fetchResult->uid);
                                     $mailBox->client_id = $client->id;
                                     $mailBox->email_id = $adminEmail->id;
-                                    $mailBox->folder = $folder;
+                                    $mailBox->folder = imap_mutf7_to_utf8($folder);
                                     $mailBox->is_ready = 1;
                                     $mailBox->received_at =  Carbon::parse($fetchResult->date)->format('Y-m-d H:i:s');
 
@@ -120,7 +127,7 @@ class MailManagement
                                     History::create([
                                         'client_id' => $client->id,
                                         'entity_id' => $mailBox->id,
-                                        'date' => date('Y-m-d H:i:s', $mailBox->created_at),
+                                        'date' => $mailBox->received_at,
                                         'table' => 'email_messages',
                                     ]);
                                 }
