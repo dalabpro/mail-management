@@ -3,6 +3,7 @@
 namespace Kgregorywd\MailManagement\Drivers;
 
 use App\Models\Client;
+use App\Models\History;
 use Carbon\Carbon;
 use Kgregorywd\MailManagement\Models\EmailMessage;
 use Kgregorywd\MailManagement\Models\MailBox;
@@ -115,6 +116,13 @@ class MailManagement
                                     $mailBox->received_at =  Carbon::parse($fetchResult->date)->format('Y-m-d H:i:s');
 
                                     $mailBox->save();
+
+                                    History::create([
+                                        'client_id' => $client->id,
+                                        'entity_id' => $mailBox->id,
+                                        'date' => date('Y-m-d H:i:s', $mailBox->created_at),
+                                        'table' => 'email_messages',
+                                    ]);
                                 }
 
                             }
