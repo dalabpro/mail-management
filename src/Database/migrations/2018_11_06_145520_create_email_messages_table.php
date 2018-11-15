@@ -15,7 +15,7 @@ class CreateEmailMessagesTable extends Migration
     {
         Schema::create('email_messages', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('uid')->unique(); // уникальный номер письма в почтовом ящике
+            $table->integer('uid'); // уникальный номер письма в почтовом ящике
             $table->string('message_id')->unique(); // уникальный номер сообщения
             $table->string('subject')->nullable(); // тема письма
             $table->longText('text_body')->nullable(); // письмо храниться на сервере в виде обычного текста
