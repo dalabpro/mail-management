@@ -175,11 +175,11 @@ class MailManagement
                     $charset = $part->parameters[0]->value;//кодировка символов
 
                     if($mimetype == 'TEXT/PLAIN'){
-                        $text = iconv($charset, "UTF-8", $text);
+                        $text = quoted_printable_decode(iconv($charset, "UTF-8", $text));
                     }
 
                     if($mimetype == 'TEXT/HTML'){
-                        $text = iconv($charset, "UTF-8", $text);
+                        $text = quoted_printable_decode(iconv($charset, "UTF-8", $text));
                     }
 
                     return $text;
