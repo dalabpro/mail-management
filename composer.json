@@ -1,5 +1,5 @@
 {
-    "name": "kgregorywd/mail-management",
+    "name": "dalab/mail-management",
     "description": "Mail management",
     "type": "library",
     "license": "MIT",
@@ -14,16 +14,16 @@
     "require": {},
     "autoload": {
         "psr-4": {
-            "Kgregorywd\\MailManagement\\": "src/"
+            "Dalab\\MailManagement\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Kgregorywd\\MailManagement\\MailManagementServiceProvider"
+                "Dalab\\MailManagement\\MailManagementServiceProvider"
             ],
             "aliases": {
-                "MailManagement": "Kgregorywd\\MailManagement\\Facade"
+                "MailManagement": "Dalab\\MailManagement\\Facade"
             }
         }
     }
