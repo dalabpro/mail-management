@@ -150,7 +150,7 @@ class MailManagementController extends BackendController
 
         $model->update($requestData);
 
-        return redirect(route("{$this->getCollect('type')}.index"));
+        return redirect(route("backend.{$this->getCollect('type')}.index"));
     }
 
     /**
