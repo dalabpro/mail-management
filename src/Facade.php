@@ -1,6 +1,6 @@
 <?php
 
-namespace Kgregorywd\MailManagement;
+namespace Dalab\MailManagement;
 
 class Facade extends \Illuminate\Support\Facades\Facade
 {

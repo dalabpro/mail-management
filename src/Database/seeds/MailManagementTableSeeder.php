@@ -1,6 +1,6 @@
 <?php
 
-namespace Kgregorywd\MailManagement\Database\Seed;
+namespace Dalab\MailManagement\Database\Seed;
 
 use Illuminate\Database\Seeder;
 

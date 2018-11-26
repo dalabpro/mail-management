@@ -1,6 +1,6 @@
 <?php
 
-namespace Kgregorywd\Currencies\Models\Observers;
+namespace Dalab\Currencies\Models\Observers;
 
 class EmailMessageObserver
 {

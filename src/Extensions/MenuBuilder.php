@@ -1,6 +1,6 @@
 <?php
 
-namespace Kgregorywd\MailManagement\Extensions;
+namespace Dalab\MailManagement\Extensions;
 
 use Menu;
 

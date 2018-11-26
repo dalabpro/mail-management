@@ -1,10 +1,10 @@
 <?php
 
-namespace Kgregorywd\MailManagement\Models;
+namespace Dalab\MailManagement\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Kgregorywd\MailManagement\Models\Observers\MailsInboxObserver;
+use Dalab\MailManagement\Models\Observers\MailsInboxObserver;
 
 class MailBox extends Model
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Kgregorywd\MailManagement;
+namespace Dalab\MailManagement;
 
-use Kgregorywd\MailManagement\Drivers\MailManagement;
-use Kgregorywd\MailManagement\Extensions\MenuBuilder;
-use Kgregorywd\MailManagement\Models\MailBox;
+use Dalab\MailManagement\Drivers\MailManagement;
+use Dalab\MailManagement\Extensions\MenuBuilder;
+use Dalab\MailManagement\Models\MailBox;
 use Route;
 use Illuminate\Support\ServiceProvider;
 
@@ -17,7 +17,7 @@ class MailManagementServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    protected $namespace = 'Kgregorywd\MailManagement\Http\Controllers';
+    protected $namespace = 'Dalab\MailManagement\Http\Controllers';
 
     /**
      * The available commands

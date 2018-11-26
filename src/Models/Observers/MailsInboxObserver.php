@@ -1,6 +1,6 @@
 <?php
 
-namespace Kgregorywd\MailManagement\Models\Observers;
+namespace Dalab\MailManagement\Models\Observers;
 
 class MailsInboxObserver
 {

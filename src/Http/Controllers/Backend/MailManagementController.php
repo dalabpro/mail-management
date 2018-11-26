@@ -1,10 +1,10 @@
 <?php
 
-namespace Kgregorywd\MailManagement\Http\Controllers\Backend;
+namespace Dalab\MailManagement\Http\Controllers\Backend;
 
 use App\Http\Controllers\BackendController;
 use Illuminate\Http\Request;
-use Kgregorywd\MailManagement\Models\MailBox;
+use Dalab\MailManagement\Models\MailBox;
 use MailManagement;
 
 class MailManagementController extends BackendController

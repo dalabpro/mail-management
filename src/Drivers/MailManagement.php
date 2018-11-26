@@ -1,12 +1,12 @@
 <?php
 
-namespace Kgregorywd\MailManagement\Drivers;
+namespace Dalab\MailManagement\Drivers;
 
 use App\Models\Client;
 use App\Models\History;
 use Carbon\Carbon;
-use Kgregorywd\MailManagement\Models\EmailMessage;
-use Kgregorywd\MailManagement\Models\MailBox;
+use Dalab\MailManagement\Models\EmailMessage;
+use Dalab\MailManagement\Models\MailBox;
 use View;
 
 class MailManagement
